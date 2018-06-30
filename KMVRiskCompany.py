@@ -23,7 +23,7 @@ normcdf = ss.norm(0,1).cdf
 def CalEquity():
     '''
     compute Equity market value and volatility of Equity market value
-    base price value and equity value
+    based on price value and equity value
     '''
     
     return [E,EquityTheta]

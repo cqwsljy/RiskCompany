@@ -1,0 +1,172 @@
+%!TEX program = xelatex
+% Lecture note template with Chinese language settings
+\documentclass[12pt,a4paper,twoside]{article} 
+
+%%%%%%%%%%%%%% package %%%%%%%%%%%%%%%
+\usepackage{amsmath,amssymb,amsthm,amsbsy,amsfonts,mathrsfs,amscd}  
+\usepackage{fontspec,xltxtra,xunicode}     
+\usepackage[slantfont,boldfont,CJKnumber]{xeCJK}
+\usepackage[bookmarksnumbered,bookmarksopen,colorlinks,linkcolor=magenta,anchorcolor=blue,citecolor=green,urlcolor=blue]{hyperref} 
+\usepackage{bm}                            
+\usepackage[all]{xy}                      
+\usepackage{mathtools}                     
+\usepackage{cases}                         
+\usepackage{enumitem}                      
+\usepackage{titlesec}                      
+\usepackage{graphics}                      
+\usepackage{tabularx}                      
+\usepackage{longtable}                     
+\usepackage{tikz}                          
+\usepackage{algorithm}                    
+\usepackage{color,xcolor}                  
+\usepackage{fancyvrb}                      
+\usepackage{float}                         
+\usepackage{lineno}                        
+\usepackage{listing}                       
+\usepackage{siunitx}                      
+\usepackage{multirow,multicol}            
+\usepackage{subfigure}                     
+\usepackage{indentfirst}                   
+
+%%%%%%%%%% 字体 %%%%%%%%%%
+\XeTeXlinebreaklocale "zh"                                      
+\XeTeXlinebreakskip = 0pt plus 1pt minus 0.1pt
+\setCJKmainfont[BoldFont=SimHei,ItalicFont=KaiTi]{SimSun}      
+\setCJKsansfont{SimHei}                                         
+\setCJKmonofont{FangSong}                                        
+\setmainfont[Mapping=tex-text]{CMU Serif}                   
+\setsansfont[Mapping=tex-text]{CMU Sans Serif}               
+
+%%%%%%%%%% 页面 %%%%%%%%%%     
+\linespread{1.2}                                              
+\usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}   
+\usepackage{fancyhdr}                                              
+\pagestyle{fancy}
+\fancyhf{}  
+\fancyhead[CE]{}                          % author
+\fancyhead[CO]{}                          % title  
+\fancyhead[LE,RO]{\thepage}
+       
+%%%%%%%%%% 标题 %%%%%%%%%%
+\renewcommand{\contentsname}{目\qquad 录}
+\renewcommand\listfigurename{插\ 图\ 目\ 录}
+\renewcommand\listtablename{表\ 格\ 目\ 录}
+\renewcommand{\abstractname}{摘\quad 要}
+\renewcommand{\appendixname}{附\quad 录}
+\renewcommand{\indexname}{索\qquad 引}
+\renewcommand{\proofname}{\bf 证明}
+\renewcommand{\figurename}{图}
+\renewcommand{\tablename}{表}
+\renewcommand{\today}{\number\year 年 \number\month 月 \number\day 日}    
+\numberwithin{equation}{section}                         
+\numberwithin{figure}{section}                          
+\numberwithin{table}{section}                           
+\setcounter{secnumdepth}{3}                              
+\renewcommand{\labelenumi}{{\rm (\roman{enumi})}}  
+
+%%%%%%%%%% 定理 %%%%%%%%%%
+\theoremstyle{plain}
+\newtheorem{theorem}{定理}[section]
+\newtheorem{lemma}[theorem]{引理}
+\newtheorem{corollary}[theorem]{推论}
+\newtheorem{proposition}[theorem]{命题}
+\newtheorem{axiom}{公理}[section]
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{定义}
+\newtheorem{example}[theorem]{例}
+\newtheorem{exercise}[theorem]{练习}
+\newtheorem{question}[theorem]{问题}
+\newtheorem{remark}[theorem]{注}
+
+%%%%%%%%%% 数学函数 %%%%%%%%%%%
+\DeclareMathOperator{\mchar}{char}
+\DeclareMathOperator{\coker}{coker}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\esssup}{ess\,sup}  
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\mim}{im}
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\nullity}{nullity} 
+\DeclareMathOperator{\rank}{rank}   
+\DeclareMathOperator{\tr}{tr}                 
+\DeclareMathOperator{\mspan}{span}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\Ann}{Ann}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Ob}{Ob}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Fun}{Fun}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Mod}{Mod}
+\DeclareMathOperator{\Orb}{Orb}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Stab}{Stab}
+\DeclareMathOperator{\Sym}{Sym}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}   
+\newcommand{\inn}[2]{\left\langle #1,#2\right\rangle}            
+\newcommand{\dis}{\displaystyle}
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cG}{\mathcal{G}}
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\cI}{\mathcal{I}}
+\newcommand{\cJ}{\mathcal{J}}
+\newcommand{\cK}{\mathcal{K}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cQ}{\mathcal{Q}}
+\newcommand{\cR}{\mathcal{R}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\cT}{\mathcal{T}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\cV}{\mathcal{V}}
+\newcommand{\cW}{\mathcal{W}}
+\newcommand{\cX}{\mathcal{X}}
+\newcommand{\cY}{\mathcal{Y}}
+\newcommand{\cZ}{\mathcal{Z}}
+\newcommand{\N}{\mathbf{N}}
+\newcommand{\Z}{\mathbf{Z}}
+\newcommand{\Q}{\mathbf{Q}}
+\newcommand{\R}{\mathbf{R}}
+\renewcommand{\C}{\mathbf{C}}
+\newcommand{\F}{\mathbf{F}}
+\newcommand{\K}{\mathbf{K}}
+\renewcommand{\P}{\mathbf{P}}
+\newcommand{\E}{\mathbf{E}}
+\newcommand{\Var}{\mathbf{Var}}
+\newcommand{\Cov}{\mathbf{Cov}}
+\newcommand{\Prob}{(\Omega,\mathcal{F},\mathbf{P})}
+\newcommand{\Set}{\mathbf{Set}}
+\newcommand{\Rel}{\mathbf{Rel}}
+\newcommand{\Ord}{\mathbf{Ord}}
+\newcommand{\Ab}{\mathbf{Ab}}
+\newcommand{\Gp}{\mathbf{Gp}}
+\newcommand{\Top}{\mathbf{Top}}
+\renewcommand{\c}{\text{c}}
+\newcommand{\op}{\text{op}}
+\renewcommand{\T}{\text{T}}
+\begin{document}
+	
+\title{}
+\author{}
+\date{}
+\maketitle	
+
+
+\[\left\{ \begin{array}{l}
+{{\rm{V}}_A}(t)\Phi ({d_1}) - {e^{ - r(T - t)}}D\Phi ({d_2}) - {V_E} = 0\\
+\frac{{{V_{\rm{A}}}}}{{{V_{\rm{E}}}}}\Phi ({d_1}){\sigma _A} - {\sigma _E} = 0
+\end{array} \right.\]
+其中，$V_E$表示股权价值，$\sigma_E$表示股权价值波动率，这个两个参数需要通过上市公司的市值进行计算。然后求解上述非线性方程组得到资产价值和波动率。
+	
+	
+\end{document}

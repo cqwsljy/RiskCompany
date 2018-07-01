@@ -20,18 +20,27 @@ from matplotlib import pyplot as plt
 
 normcdf = ss.norm(0,1).cdf
 
-def CalEquity():
+def CalEquity(df):
     '''
     compute Equity market value and volatility of Equity market value
     based on price value and equity value
+    @parameter:
+        df pandas.DataFrame,with market cap and changepercent of price
     '''
-    
+    E = df["mktcap"].mean()  ##market cap 
+    EquityTheta = df["changepercent"].var()
     return [E,EquityTheta]
 
 
 def KMVfun(x,EtoD,r,t,EquityTheta):
     '''
     KMV model,nolinear equations,solved by SovleKMV function
+    @parameters:
+        x = [Equtity,Equtity Theta]
+        EtoD = E/D
+        r = risk free
+        t = time to expiration
+        EqutityTheta = volatility of Equity market value
     '''
     d1 = ( np.log(x[0]*EtoD) + (r + 0.5*x[1]**2)*t)/(x[1]*np.sqrt(t))
     d2 = d1 - x[1] * np.sqrt(t)
@@ -40,6 +49,9 @@ def KMVfun(x,EtoD,r,t,EquityTheta):
 def SolveKMV(E,D,r,t,EquityTheta):
     '''
     Solve KMV model(nolinear equations) and get Va and Sigma_A
+    @paramters:
+        same to KMVfun's parameters
+    
     '''
     EtoD = E/D  # asumme that Va = x * E
     result = root(KMVfun, [2,2], args=(EtoD,rf,t,EquityTheta))    
@@ -49,12 +61,17 @@ def SolveKMV(E,D,r,t,EquityTheta):
     return [Va,AssetTheta]
     
 
-def DistDeafult():
+def DistDeafult(E,D,r,t,EquityTheta,initialValues=[]):
     '''
     compute distance deafult and probability of default
+    @paramters:
+        initialValues = [initial values for solve equations]
     '''
-    
-    
+    EtoD = E/D
+    result = root(KMVfun,initialValues, args=(EtoD,rf,t,EquityTheta))  
+    x = result.x
+    DD = (np.log(x[0]*EtoD) + (r + 0.5*x[1]**2)*t)/(x[1]*np.sqrt(t))
+    EDF = normcdf(-DD)
     return [DD,EDF]
 
 
@@ -64,8 +81,12 @@ if __name__ == "__main__":
     EquityTheta = 0.6197
     rf = 0.0425
     t = 1
-    EtoD = E/D
-    result = root(KMVfun, [2,2], args=(EtoD,rf,t,EquityTheta))    
+    
+    
+    
+    [DD,EDF] = DistDeafult(E,D,rf,t,EquityTheta,initialValues=[2,2])
+#    EtoD = E/D
+#    result = root(KMVfun, [2,2], args=(EtoD,rf,t,EquityTheta))    
 #    Va = 1.6072e+09
 #    AssetTheta = 0.070070795977895
 #    x = [9.326369878567993 ,AssetTheta]

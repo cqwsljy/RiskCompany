@@ -25,10 +25,10 @@ def CalEquity(df):
     compute Equity market value and volatility of Equity market value
     based on price value and equity value
     @parameter:
-        df pandas.DataFrame,with market cap and changepercent of price
+        df pandas.DataFrame,with market cap and change rate of price
     '''
     Equity = df["mktcap"].mean()  ##market cap 
-    EquityTheta = df["changepercent"].var()
+    EquityTheta = np.sqrt(df["change"].var()) #change rate of price
     return [Equity,EquityTheta]
 
 
@@ -42,9 +42,9 @@ def KMVfun(x,EtoD,r,t,EquityTheta):
         t = time to expiration
         EqutityTheta = volatility of Equity market value
     '''
-    d1 = ( np.log(x[0]*EtoD) + (r + 0.5*x[1]**2)*t)/(x[1]*np.sqrt(t))
+    d1 = (np.log(x[0]*EtoD) + (r - 0.5*x[1]**2) * t)/(x[1] * np.sqrt(t))
     d2 = d1 - x[1] * np.sqrt(t)
-    return  np.array([x[0]*normcdf(d1) - np.exp(-r*t)*normcdf(d2)/EtoD - 1,normcdf(d1)*x[0] * x[1] - EquityTheta])
+    return  np.array([x[0] * normcdf(d1) - np.exp(-r*t) * normcdf(d2)/EtoD - 1,normcdf(d1) * x[0] * x[1] - EquityTheta])
 
 def SolveKMV(E,D,r,t,EquityTheta):
     '''
@@ -70,17 +70,17 @@ def DistDeafult(E,D,r,t,EquityTheta,initialValues=[]):
     EtoD = E/D
     result = root(KMVfun,initialValues, args=(EtoD,rf,t,EquityTheta))  
     x = result.x
-    DD = (np.log(x[0]*EtoD) + (r + 0.5*x[1]**2)*t)/(x[1]*np.sqrt(t))
+    DD = (np.log(x[0]*EtoD) + (r - 0.5*x[1]**2)*t)/(x[1]*np.sqrt(t))
     EDF = normcdf(-DD)
     return [DD,EDF]
 
 
 if __name__ == "__main__":
-    D = 1499800729.147
-    E = 172330000
-    EquityTheta = 0.6197
-    rf = 0.0425
-    t = 1  #time to expiration
+    D = 1499800729.147       # Debt
+    E = 172330000            # equtity
+    EquityTheta = 0.6197     # equtity theta
+    rf = 0.0425              # risk free
+    t = 1                    #time to expiration
     
     [DD,EDF] = DistDeafult(E,D,rf,t,EquityTheta,initialValues=[2,2])
 #    EtoD = E/D

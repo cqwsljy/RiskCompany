@@ -27,9 +27,9 @@ def CalEquity(df):
     @parameter:
         df pandas.DataFrame,with market cap and changepercent of price
     '''
-    E = df["mktcap"].mean()  ##market cap 
+    Equity = df["mktcap"].mean()  ##market cap 
     EquityTheta = df["changepercent"].var()
-    return [E,EquityTheta]
+    return [Equity,EquityTheta]
 
 
 def KMVfun(x,EtoD,r,t,EquityTheta):

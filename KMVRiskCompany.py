@@ -80,9 +80,7 @@ if __name__ == "__main__":
     E = 172330000
     EquityTheta = 0.6197
     rf = 0.0425
-    t = 1
-    
-    
+    t = 1  #time to expiration
     
     [DD,EDF] = DistDeafult(E,D,rf,t,EquityTheta,initialValues=[2,2])
 #    EtoD = E/D

@@ -40,7 +40,7 @@ def KMVfun(x,EtoD,r,t,EquityTheta):
         EtoD = E/D
         r = risk free
         t = time to expiration
-        EqutityTheta = volatility of Equity market value
+        EqutityTheta = volatility of equity
     '''
     d1 = (np.log(x[0]*EtoD) + (r - 0.5*x[1]**2) * t)/(x[1] * np.sqrt(t))
     d2 = d1 - x[1] * np.sqrt(t)

@@ -1,0 +1,13 @@
+sqlldr system/123@ORCL data='C:\Users\Alpha\Desktop\post2oracle\NationalLandNormalizedV2.txt' control=C:\Users\Alpha\Desktop\post2oracle\VVN2.ctl log=C:\Users\Alpha\Desktop\post2oracle\nnv.log
+
+sqlldr system/123@ORCL data='C:\Users\Alpha\Desktop\post2oracle\land_trans.txt' control=C:\Users\Alpha\Desktop\post2oracle\land_trans.ctl log=c:\Users\Alpha\Desktop\post2oracle\nnv.log
+
+
+sqlldr system/123@ORCL data='C:\Users\Alpha\Desktop\post2oracle\land_map.txt' control=C:\Users\Alpha\Desktop\post2oracle\land_map.ctl log=c:\Users\Alpha\Desktop\post2oracle\land_map.log
+
+
+
+sqlldr system/123@ORCL data='C:\Users\Alpha\Desktop\post2oracle\df_geinfo_MCA2.txt' control=C:\Users\Alpha\Desktop\post2oracle\nationgeostdmca.ctl  log=c:\Users\Alpha\Desktop\post2oracle\nationgeostdmca.log
+
+
+sqlldr system/123@ORCL data='C:\Users\Alpha\Desktop\post2oracle\tmp_geo_local.txt' control=C:\Users\Alpha\Desktop\post2oracle\tmp_geo_local.ctl  log=c:\Users\Alpha\Desktop\post2oracle\tmp_geo_local.log
